@@ -15,7 +15,7 @@ protocol CustomContainerViewDelegate: class{
 class CustomContainerView: UIView{
     
     private let lineWidth: CGFloat = 2
-    private let lineColor1 = UIColor.black
+    private let lineColor = UIColor.black
 
     private var bezierPath1: UIBezierPath?
     private var bezierPath2: UIBezierPath?
@@ -38,9 +38,10 @@ class CustomContainerView: UIView{
     
     private func setup() {
         backgroundColor = .white
+        addSubview(imageView1)
         addSubview(imageView2)
         addSubview(imageView3)
-        addSubview(imageView1)
+        
         imageView1.isUserInteractionEnabled = true
         imageView2.isUserInteractionEnabled = true
         imageView3.isUserInteractionEnabled = true
@@ -62,16 +63,16 @@ class CustomContainerView: UIView{
     
     override func draw(_ rect: CGRect) {
         if let path1 = bezierPath1 {
-            lineColor1.setStroke()
+            lineColor.setStroke()
             path1.stroke()
         }
         if let path2 = bezierPath2 {
-            lineColor1.setStroke()
+            lineColor.setStroke()
             path2.stroke()
         }
         
-        if let path3 = bezierPath2 {
-            lineColor1.setStroke()
+        if let path3 = bezierPath3 {
+            lineColor.setStroke()
             path3.stroke()
         }
     }
@@ -96,7 +97,7 @@ class CustomContainerView: UIView{
         path1.addLine(to: CGPoint(x:00, y: 110))
 
         path1.addLine(to: CGPoint(x: 0, y: 0))
-
+        path1.close()
 
         let path2 = UIBezierPath()
         path2.lineWidth = lineWidth
@@ -114,6 +115,8 @@ class CustomContainerView: UIView{
         path2.addLine(to: CGPoint(x: 0, y: 321))
 
         path2.addLine(to: CGPoint(x: 0, y: 110))
+        
+        path2.close()
 
         let path3 = UIBezierPath()
         path3.lineWidth = lineWidth
@@ -130,6 +133,8 @@ class CustomContainerView: UIView{
         path3.addLine(to: CGPoint(x: 190, y: 110))
 
         path3.addLine(to: CGPoint(x: 321, y: 110))
+        
+        path3.close()
         
         imageView1.frame = path1.bounds
         let maskLayer1 = CAShapeLayer()
