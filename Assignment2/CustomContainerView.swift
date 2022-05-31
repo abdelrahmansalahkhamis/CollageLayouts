@@ -53,7 +53,6 @@ class CustomContainerView: UIView{
         imageView1.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
         imageView2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
         imageView3.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
-        
     }
     
     @objc func didTapImageView(_ sender: UITapGestureRecognizer) {
