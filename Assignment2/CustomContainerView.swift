@@ -15,7 +15,7 @@ protocol CustomContainerViewDelegate: class{
 class CustomContainerView: UIView{
     
     private let lineWidth: CGFloat = 2
-    private let lineColor1 = UIColor.black
+    private let lineColor = UIColor.black
 
     private var bezierPath1: UIBezierPath?
     private var bezierPath2: UIBezierPath?
@@ -38,9 +38,11 @@ class CustomContainerView: UIView{
     
     private func setup() {
         backgroundColor = .white
-        addSubview(imageView2)
         addSubview(imageView3)
+        addSubview(imageView2)
         addSubview(imageView1)
+        
+        
         imageView1.isUserInteractionEnabled = true
         imageView2.isUserInteractionEnabled = true
         imageView3.isUserInteractionEnabled = true
@@ -53,7 +55,6 @@ class CustomContainerView: UIView{
         imageView1.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
         imageView2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
         imageView3.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
-        
     }
     
     @objc func didTapImageView(_ sender: UITapGestureRecognizer) {
@@ -63,16 +64,16 @@ class CustomContainerView: UIView{
     
     override func draw(_ rect: CGRect) {
         if let path1 = bezierPath1 {
-            lineColor1.setStroke()
+            lineColor.setStroke()
             path1.stroke()
         }
         if let path2 = bezierPath2 {
-            lineColor1.setStroke()
+            lineColor.setStroke()
             path2.stroke()
         }
         
-        if let path3 = bezierPath2 {
-            lineColor1.setStroke()
+        if let path3 = bezierPath3 {
+            lineColor.setStroke()
             path3.stroke()
         }
     }
@@ -81,7 +82,7 @@ class CustomContainerView: UIView{
         super.layoutSubviews()
 
 
-        let path1 = UIBezierPath()
+        let path1 = UIBezierPath(ovalIn: imageView1.frame)
         path1.lineWidth = lineWidth
 
         let startPoint1 = CGPoint(x: 0, y: 0)
@@ -90,47 +91,53 @@ class CustomContainerView: UIView{
 
         path1.addLine(to: CGPoint(x: 0, y: 0))
 
-        path1.addLine(to: CGPoint(x: 321, y: 0))
+        path1.addLine(to: CGPoint(x: 160.5, y: 0))
 
-        path1.addLine(to: CGPoint(x: 321, y: 110))
+        path1.addLine(to: CGPoint(x: 160.5, y: 321))
 
-        path1.addLine(to: CGPoint(x:00, y: 110))
+        path1.addLine(to: CGPoint(x:0, y: 321))
 
         path1.addLine(to: CGPoint(x: 0, y: 0))
+        path1.close()
 
-
-        let path2 = UIBezierPath()
+        let path2 = UIBezierPath(ovalIn: imageView2.frame)
         path2.lineWidth = lineWidth
 
-        let startPoint2 = CGPoint(x: 0, y: 110)
+        let startPoint2 = CGPoint(x: 160.5, y: 0)
         path2.move(to: startPoint2)
 
 
-        path2.addLine(to: CGPoint(x: 0, y: 110))
+        path2.addLine(to: CGPoint(x: 160.5, y: 0))
 
-        path2.addLine(to: CGPoint(x: 190, y: 110))
+        path2.addLine(to: CGPoint(x: 321, y: 0))
+        
+        path2.addLine(to: CGPoint(x: 321, y: 190))
 
-        path2.addLine(to: CGPoint(x: 120, y: 321))
+        path2.addLine(to: CGPoint(x: 160.5, y: 150))
 
-        path2.addLine(to: CGPoint(x: 0, y: 321))
+        path2.addLine(to: CGPoint(x: 160.5, y: 0))
+        
+        path2.close()
 
-        path2.addLine(to: CGPoint(x: 0, y: 110))
-
-        let path3 = UIBezierPath()
+        let path3 = UIBezierPath(ovalIn: imageView3.frame)
         path3.lineWidth = lineWidth
 
-        let startPoint3 = CGPoint(x: 321, y: 110)
+        let startPoint3 = CGPoint(x: 160.5, y: 150)
         path3.move(to: startPoint3)
 
-        path3.addLine(to: CGPoint(x: 321, y: 110))
+        path3.addLine(to: CGPoint(x: 160.5, y: 150))
         
+        path3.addLine(to: CGPoint(x: 321, y: 190))
+
         path3.addLine(to: CGPoint(x: 321, y: 321))
+
+        path3.addLine(to: CGPoint(x: 160.5, y: 321))
+
+        path3.addLine(to: CGPoint(x: 160.5, y: 150))
+
         
-        path3.addLine(to: CGPoint(x: 120, y: 321))
 
-        path3.addLine(to: CGPoint(x: 190, y: 110))
-
-        path3.addLine(to: CGPoint(x: 321, y: 110))
+        path3.close()
         
         imageView1.frame = path1.bounds
         let maskLayer1 = CAShapeLayer()
