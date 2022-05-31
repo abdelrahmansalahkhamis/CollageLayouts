@@ -38,9 +38,10 @@ class CustomContainerView: UIView{
     
     private func setup() {
         backgroundColor = .white
-        addSubview(imageView1)
-        addSubview(imageView2)
         addSubview(imageView3)
+        addSubview(imageView2)
+        addSubview(imageView1)
+        
         
         imageView1.isUserInteractionEnabled = true
         imageView2.isUserInteractionEnabled = true
@@ -81,7 +82,7 @@ class CustomContainerView: UIView{
         super.layoutSubviews()
 
 
-        let path1 = UIBezierPath()
+        let path1 = UIBezierPath(ovalIn: imageView1.frame)
         path1.lineWidth = lineWidth
 
         let startPoint1 = CGPoint(x: 0, y: 0)
@@ -90,50 +91,52 @@ class CustomContainerView: UIView{
 
         path1.addLine(to: CGPoint(x: 0, y: 0))
 
-        path1.addLine(to: CGPoint(x: 321, y: 0))
+        path1.addLine(to: CGPoint(x: 160.5, y: 0))
 
-        path1.addLine(to: CGPoint(x: 321, y: 110))
+        path1.addLine(to: CGPoint(x: 160.5, y: 321))
 
-        path1.addLine(to: CGPoint(x:00, y: 110))
+        path1.addLine(to: CGPoint(x:0, y: 321))
 
         path1.addLine(to: CGPoint(x: 0, y: 0))
         path1.close()
 
-        let path2 = UIBezierPath()
+        let path2 = UIBezierPath(ovalIn: imageView2.frame)
         path2.lineWidth = lineWidth
 
-        let startPoint2 = CGPoint(x: 0, y: 110)
+        let startPoint2 = CGPoint(x: 160.5, y: 0)
         path2.move(to: startPoint2)
 
 
-        path2.addLine(to: CGPoint(x: 0, y: 110))
+        path2.addLine(to: CGPoint(x: 160.5, y: 0))
 
-        path2.addLine(to: CGPoint(x: 190, y: 110))
+        path2.addLine(to: CGPoint(x: 321, y: 0))
+        
+        path2.addLine(to: CGPoint(x: 321, y: 190))
 
-        path2.addLine(to: CGPoint(x: 120, y: 321))
+        path2.addLine(to: CGPoint(x: 160.5, y: 150))
 
-        path2.addLine(to: CGPoint(x: 0, y: 321))
-
-        path2.addLine(to: CGPoint(x: 0, y: 110))
+        path2.addLine(to: CGPoint(x: 160.5, y: 0))
         
         path2.close()
 
-        let path3 = UIBezierPath()
+        let path3 = UIBezierPath(ovalIn: imageView3.frame)
         path3.lineWidth = lineWidth
 
-        let startPoint3 = CGPoint(x: 321, y: 110)
+        let startPoint3 = CGPoint(x: 160.5, y: 150)
         path3.move(to: startPoint3)
 
-        path3.addLine(to: CGPoint(x: 321, y: 110))
+        path3.addLine(to: CGPoint(x: 160.5, y: 150))
         
+        path3.addLine(to: CGPoint(x: 321, y: 190))
+
         path3.addLine(to: CGPoint(x: 321, y: 321))
-        
-        path3.addLine(to: CGPoint(x: 120, y: 321))
 
-        path3.addLine(to: CGPoint(x: 190, y: 110))
+        path3.addLine(to: CGPoint(x: 160.5, y: 321))
 
-        path3.addLine(to: CGPoint(x: 321, y: 110))
+        path3.addLine(to: CGPoint(x: 160.5, y: 150))
+
         
+
         path3.close()
         
         imageView1.frame = path1.bounds

@@ -23,7 +23,6 @@ class MainVC: UIViewController {
         myView.backgroundColor = .yellow
         view.addSubview(myView)
         print((view.frame.size.width * 3) / 4)
-        
     }
 
 }
