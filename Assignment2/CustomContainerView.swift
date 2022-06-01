@@ -8,7 +8,7 @@
 import UIKit
 
 // this protocol is to enable picking images from inside the custom view
-protocol CustomContainerViewDelegate: class{
+protocol CustomContainerViewDelegate: AnyObject{
     func didSelectImg(_ tag: Int)
 }
 
