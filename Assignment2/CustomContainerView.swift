@@ -14,34 +14,39 @@ protocol CustomContainerViewDelegate: class{
 
 class CustomContainerView: UIView{
     
+    // these properties will be included in the bezier paths
     private let lineWidth: CGFloat = 2
-    private let lineColor = UIColor.black
+    private let lineColor: UIColor = UIColor.black
 
+    // three UIBezierPath instances for three image sections
     private var bezierPath1: UIBezierPath?
     private var bezierPath2: UIBezierPath?
     private var bezierPath3: UIBezierPath?
+    
+    // three UIImageView instances for three image sections
     let imageView1 = UIImageView()
     let imageView2 = UIImageView()
     let imageView3 = UIImageView()
     
+    // this delegate is to enable communication with main vc and pass image tag
     weak var delegate: CustomContainerViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
+        setupImages()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        setupImages()
     }
     
-    private func setup() {
-        backgroundColor = .white
+    // configure 3 image views, each is a container for images
+    private func setupImages() {
+        //backgroundColor = .white
         addSubview(imageView3)
         addSubview(imageView2)
         addSubview(imageView1)
-        
         
         imageView1.isUserInteractionEnabled = true
         imageView2.isUserInteractionEnabled = true
@@ -49,19 +54,17 @@ class CustomContainerView: UIView{
         imageView1.tag = 1
         imageView2.tag = 2
         imageView3.tag = 3
-        imageView2.image = UIImage(named: "HMD-RMB-2")
-        imageView1.image = UIImage(named: "md")
-        imageView3.image = UIImage(named: "socket")
         imageView1.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
         imageView2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
         imageView3.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapImageView(_:))))
     }
     
+    // action based on image tap
     @objc func didTapImageView(_ sender: UITapGestureRecognizer) {
-        delegate?.didSelectImg(sender.view?.tag ?? 0)
-        print("did tap image view", sender.view?.tag)
+        delegate?.didSelectImg(sender.view?.tag ?? 1)
     }
     
+    // draw function automaticly invoked to draw the view's content
     override func draw(_ rect: CGRect) {
         if let path1 = bezierPath1 {
             lineColor.setStroke()
@@ -71,96 +74,78 @@ class CustomContainerView: UIView{
             lineColor.setStroke()
             path2.stroke()
         }
-        
+
         if let path3 = bezierPath3 {
             lineColor.setStroke()
             path3.stroke()
         }
     }
     
+    // layoutSubviews is to set the frame rectangles of subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-
-
+        setUpBezierPath()
+    }
+    
+    // create 3 bezier paths that will surround the images sections and will be invoked in the layoutSubviews function
+    func setUpBezierPath(){
+        
+        // first, create 3 paths with specific lines
+        // ---------------------------------------- path 1  ----------------------------------------
         let path1 = UIBezierPath(ovalIn: imageView1.frame)
         path1.lineWidth = lineWidth
-
         let startPoint1 = CGPoint(x: 0, y: 0)
         path1.move(to: startPoint1)
-
-
-        path1.addLine(to: CGPoint(x: 0, y: 0))
-
-        path1.addLine(to: CGPoint(x: 160.5, y: 0))
-
-        path1.addLine(to: CGPoint(x: 160.5, y: 321))
-
-        path1.addLine(to: CGPoint(x:0, y: 321))
-
+        path1.addLine(to: CGPoint(x: 0 , y: 0))
+        path1.addLine(to: CGPoint(x: self.frame.size.width / 2, y: 0))
+        path1.addLine(to: CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height))
+        path1.addLine(to: CGPoint(x: 0, y: self.frame.size.height))
         path1.addLine(to: CGPoint(x: 0, y: 0))
         path1.close()
+        bezierPath1 = path1
 
+        // ---------------------------------------- path 2  ----------------------------------------
         let path2 = UIBezierPath(ovalIn: imageView2.frame)
         path2.lineWidth = lineWidth
 
-        let startPoint2 = CGPoint(x: 160.5, y: 0)
+        let startPoint2 = CGPoint(x: self.frame.size.width / 2, y: 0)
         path2.move(to: startPoint2)
-
-
-        path2.addLine(to: CGPoint(x: 160.5, y: 0))
-
-        path2.addLine(to: CGPoint(x: 321, y: 0))
-        
-        path2.addLine(to: CGPoint(x: 321, y: 190))
-
-        path2.addLine(to: CGPoint(x: 160.5, y: 150))
-
-        path2.addLine(to: CGPoint(x: 160.5, y: 0))
-        
+        path2.addLine(to: CGPoint(x: self.frame.size.width / 2, y: 0))
+        path2.addLine(to: CGPoint(x: self.frame.size.width, y: 0))
+        path2.addLine(to: CGPoint(x: self.frame.size.width, y: self.frame.size.height - 120))
+        path2.addLine(to: CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height - 160))
+        path2.addLine(to: CGPoint(x: self.frame.size.width / 2, y: 0))
         path2.close()
+        bezierPath2 = path2
 
+        // ---------------------------------------- path 3  ----------------------------------------
         let path3 = UIBezierPath(ovalIn: imageView3.frame)
         path3.lineWidth = lineWidth
 
-        let startPoint3 = CGPoint(x: 160.5, y: 150)
+        let startPoint3 = CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height - 160)
         path3.move(to: startPoint3)
-
-        path3.addLine(to: CGPoint(x: 160.5, y: 150))
-        
-        path3.addLine(to: CGPoint(x: 321, y: 190))
-
-        path3.addLine(to: CGPoint(x: 321, y: 321))
-
-        path3.addLine(to: CGPoint(x: 160.5, y: 321))
-
-        path3.addLine(to: CGPoint(x: 160.5, y: 150))
-
-        
-
+        path3.addLine(to: CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height - 160))
+        path3.addLine(to: CGPoint(x: self.frame.size.width, y: self.frame.size.height - 120))
+        path3.addLine(to: CGPoint(x: self.frame.size.width, y: self.frame.size.height))
+        path3.addLine(to: CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height))
+        path3.addLine(to: CGPoint(x: self.frame.size.width / 2, y: self.frame.size.height - 160))
         path3.close()
-        
-        imageView1.frame = path1.bounds
-        let maskLayer1 = CAShapeLayer()
-        maskLayer1.path = path1.cgPath
-        imageView1.layer.mask = maskLayer1
-        bezierPath1 = path1
-
-        imageView2.frame = path2.bounds
-        let maskLayer2 = CAShapeLayer()
-        maskLayer2.path = path2.cgPath
-        imageView2.layer.mask = maskLayer2
-        bezierPath2 = path2
-        
-        imageView3.frame = path3.bounds
-        let maskLayer3 = CAShapeLayer()
-        maskLayer3.path = path3.cgPath
-        imageView3.layer.mask = maskLayer3
         bezierPath3 = path3
-        setNeedsDisplay()
         
-        print("path 1 bounds are :- \(path1.bounds)")
-        print("path 2 bounds are :- \(path2.bounds)")
-        print("path 3 bounds are :- \(path3.bounds)")
-        print("bounds are :- \(bounds)")
+        // then, create shape layers and assign to image views
+        createMaskForImage(path1, imageView1)
+        createMaskForImage(path2, imageView2)
+        createMaskForImage(path3, imageView3)
+        
+        setNeedsDisplay()
+    }
+    
+    // create shape layers and assign to image views
+    func createMaskForImage(_ path: UIBezierPath, _ imageView: UIImageView){
+        imageView.frame = path.bounds
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        imageView.layer.mask = maskLayer
     }
 }
+
