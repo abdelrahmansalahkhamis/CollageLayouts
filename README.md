@@ -11,5 +11,6 @@
     - is a custom view that will create single view with three section that with clip three images inside
     
     
-## - notice that there is no third party liberaries are included, instead, everythinng is implemented nativly
+### - notice that there is no third party liberaries are included, instead, everythinng is implemented nativly
 
+### - this custom view is implemented that it can fit all screen sizes
