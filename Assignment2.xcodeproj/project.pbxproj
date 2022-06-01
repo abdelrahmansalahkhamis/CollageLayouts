@@ -49,6 +49,7 @@
 		A478510E28468E3B00493AF4 /* Assignment2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Assignment2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A478511228468E3B00493AF4 /* Assignment2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment2UITests.swift; sourceTree = "<group>"; };
 		A478511428468E3B00493AF4 /* Assignment2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment2UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A4AE02E12847A8D60064A7B2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A4DEB6E82846920000335CD4 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		A4DEB6EA2846924D00335CD4 /* CustomContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,6 +82,7 @@
 		A47850E528468E3100493AF4 = {
 			isa = PBXGroup;
 			children = (
+				A4AE02E12847A8D60064A7B2 /* README.md */,
 				A47850F028468E3100493AF4 /* Assignment2 */,
 				A478510728468E3B00493AF4 /* Assignment2Tests */,
 				A478511128468E3B00493AF4 /* Assignment2UITests */,
