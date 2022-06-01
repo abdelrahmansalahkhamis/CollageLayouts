@@ -20,10 +20,10 @@ class MainVC: UIViewController {
         view.backgroundColor = .white
         myView.delegate = self
         myView.frame = CGRect(x: view.frame.size.width / 2 - 150, y: view.frame.size.height / 2 - 150, width: (view.frame.size.width * 3) / 4 , height: (view.frame.size.width * 3) / 4)
+        myView.center = view.center
         myView.backgroundColor = .yellow
         view.addSubview(myView)
         print((view.frame.size.width * 3) / 4)
-        
     }
 
 }
